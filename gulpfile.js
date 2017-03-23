@@ -6,7 +6,8 @@ var useref = require('gulp-useref');
 var cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
-var gulpIgnore = require('gulp-ignore');
+var uncss = require('gulp-uncss');
+
 
 // paths
 var paths = {
@@ -20,10 +21,13 @@ var paths = {
 // sass compilation
 gulp.task('sass', function(){
     return gulp.src(paths.devScss)
-        .pipe(autoprefixer())
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
+        .pipe(autoprefixer())
+/*        .pipe(uncss({
+            html: [paths.prodHtmlDir]
+        }))*/
         .pipe(gulp.dest(paths.devCss))
 });
 
@@ -33,9 +37,14 @@ gulp.task('watch', function(){
 });
 
 // prod
-gulp.task('prod', function () {
+gulp.task('prod-min', function () {
     return gulp.src(paths.prodHtmlDir)
         .pipe(useref())
         .pipe(gulpif(paths.devAllCss, cleanCSS()))
         .pipe(gulp.dest(paths.prodDir));
+});
+
+gulp.task('prod', function () {
+    return gulp.src('app/css/*.css')
+        .pipe(gulp.dest('dist/css'));
 });
