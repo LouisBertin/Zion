@@ -1,0 +1,113 @@
+//************************
+//    VARIABLES
+//************************
+
+// global
+$z-gridName:   grid !default;
+$z-colName:   col !default;
+$z-gutter:    1rem !default; // Total
+$z-col-bottom: $z-gutter !default;
+
+// main colors
+$black: #000;
+
+// container
+$z-container-width: 1200px;
+$z-container-padding: 0 1em;
+
+// container-full
+$z-container--full-padding: 0 1em;
+
+// breakpoints
+$z-xs:        "screen and (max-width: 35.5em)" !default; // up to 568px
+$z-sm:        "screen and (max-width: 48em)" !default; // max 768px
+$z-md:        "screen and (max-width: 64em)" !default; // max 1024px
+$z-lg:        "screen and (max-width: 80em)" !default; // max 1280px
+
+// columns sizes
+$z_col-1: (100%/12);
+$z_col-2: ($z_col-1*2);
+$z_col-3: ($z_col-1*3);
+$z_col-4: ($z_col-1*4);
+$z_col-5: ($z_col-1*5);
+$z_col-6: ($z_col-1*6);
+$z_col-7: ($z_col-1*7);
+$z_col-8: ($z_col-1*8);
+$z_col-9: ($z_col-1*9);
+$z_col-10: ($z_col-1*10);
+$z_col-11: ($z_col-1*11);
+$z_col-12: 100%;
+
+$z_col-5-12: (100%/5);
+$z_col-7-12: (100%/7);
+$z_col-8-12: (100%/8);
+$z_col-9-12: (100%/9);
+$z_col-10-12: (100%/10);
+$z_col-11-12: (100%/11);
+
+// Function to generate the grid by number
+@mixin makeGridByNumber($grid)
+{
+  [class*="#{$grid}-1"] > .#{$z-colName}, [class*="#{$grid}-1"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-12; max-width: $z_col-12; }
+  [class*="#{$grid}-2"] > .#{$z-colName}, [class*="#{$grid}-2"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-6; max-width: $z_col-6; }
+  [class*="#{$grid}-3"] > .#{$z-colName}, [class*="#{$grid}-3"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-4; max-width: $z_col-4; }
+  [class*="#{$grid}-4"] > .#{$z-colName}, [class*="#{$grid}-4"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-3; max-width: $z_col-3; }
+  [class*="#{$grid}-5"] > .#{$z-colName}, [class*="#{$grid}-5"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-5-12; max-width: $z_col-5-12; }
+  [class*="#{$grid}-6"] > .#{$z-colName}, [class*="#{$grid}-6"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-2; max-width: $z_col-2; }
+  [class*="#{$grid}-7"] > .#{$z-colName}, [class*="#{$grid}-7"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-7-12; max-width: $z_col-7-12; }
+  [class*="#{$grid}-8"] > .#{$z-colName}, [class*="#{$grid}-8"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-8-12; max-width: $z_col-8-12; }
+  [class*="#{$grid}-9"] > .#{$z-colName}, [class*="#{$grid}-9"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-9-12; max-width: $z_col-9-12; }
+  [class*="#{$grid}-10"] > .#{$z-colName}, [class*="#{$grid}-10"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-10-12; max-width: $z_col-10-12; }
+  [class*="#{$grid}-11"] > .#{$z-colName}, [class*="#{$grid}-11"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-11-12; max-width: $z_col-11-12; }
+  [class*="#{$grid}-12"] > .#{$z-colName}, [class*="#{$grid}-12"] > [class*='#{$z-colName}-']{ flex-basis: $z_col-1; max-width: $z_col-1; }
+}
+
+// Function to generate the grid by columns
+@mixin makeCol($col)
+{
+  [class*='#{$z-gridName}'] {
+    > [class*="#{$col}-1"]{ flex-basis: $z_col-1;max-width: $z_col-1; }
+    > [class*="#{$col}-2"]{ flex-basis: $z_col-2;max-width: $z_col-2; }
+    > [class*="#{$col}-3"]{ flex-basis: $z_col-3;max-width: $z_col-3; }
+    > [class*="#{$col}-4"]{ flex-basis: $z_col-4;max-width: $z_col-4;}
+    > [class*="#{$col}-5"]{ flex-basis: $z_col-5;max-width: $z_col-5;}
+    > [class*="#{$col}-6"]{ flex-basis: $z_col-6;max-width: $z_col-6;}
+    > [class*="#{$col}-7"]{ flex-basis: $z_col-7;max-width: $z_col-7;}
+    > [class*="#{$col}-8"]{ flex-basis: $z_col-8;max-width: $z_col-8;}
+    > [class*="#{$col}-9"]{ flex-basis: $z_col-9;max-width: $z_col-9;}
+    > [class*="#{$col}-10"]{ flex-basis: $z_col-10;max-width: $z_col-10;}
+    > [class*="#{$col}-11"]{ flex-basis: $z_col-11;max-width: $z_col-11;}
+    > [class*="#{$col}-12"]{ flex-basis: $z_col-12;max-width: $z_col-12;}
+  }
+}
+
+@mixin makeOff($off)
+{
+  [class*="#{$z-gridName}"]{
+    > [data-push-left*="#{$off}-0"]{ margin-left: 0; }
+    > [data-push-left*="#{$off}-1"]{ margin-left: $z_col-1; }
+    > [data-push-left*="#{$off}-2"]{ margin-left: $z_col-2; }
+    > [data-push-left*="#{$off}-3"]{ margin-left: $z_col-3; }
+    > [data-push-left*="#{$off}-4"]{ margin-left: $z_col-4; }
+    > [data-push-left*="#{$off}-5"]{ margin-left: $z_col-5; }
+    > [data-push-left*="#{$off}-6"]{ margin-left: $z_col-6; }
+    > [data-push-left*="#{$off}-7"]{ margin-left: $z_col-7; }
+    > [data-push-left*="#{$off}-8"]{ margin-left: $z_col-8; }
+    > [data-push-left*="#{$off}-9"]{ margin-left: $z_col-9; }
+    > [data-push-left*="#{$off}-10"]{ margin-left: $z_col-10; }
+    > [data-push-left*="#{$off}-11"]{ margin-left: $z_col-11; }
+
+    > [data-push-right*="#{$off}-0"]{ margin-right: 0; }
+    > [data-push-right*="#{$off}-1"]{ margin-right: $z_col-1; }
+    > [data-push-right*="#{$off}-2"]{ margin-right: $z_col-2; }
+    > [data-push-right*="#{$off}-3"]{ margin-right: $z_col-3; }
+    > [data-push-right*="#{$off}-4"]{ margin-right: $z_col-4; }
+    > [data-push-right*="#{$off}-5"]{ margin-right: $z_col-5; }
+    > [data-push-right*="#{$off}-6"]{ margin-right: $z_col-6; }
+    > [data-push-right*="#{$off}-7"]{ margin-right: $z_col-7; }
+    > [data-push-right*="#{$off}-8"]{ margin-right: $z_col-8; }
+    > [data-push-right*="#{$off}-9"]{ margin-right: $z_col-9; }
+    > [data-push-right*="#{$off}-10"]{ margin-right: $z_col-10; }
+    > [data-push-right*="#{$off}-11"]{ margin-right: $z_col-11; }
+  }
+}

@@ -1,0 +1,117 @@
+@import "z-variables";
+@import "z-mixins";
+
+// fixing position of element
+.z-fixed{
+  position: fixed;
+}
+
+// block element
+.z-block{
+  display: block;
+}
+
+// no padding on item
+.noPadding{
+  padding: 0;
+}
+
+// no margin on item
+.noMargin{
+  margin: 0;
+}
+
+// left text
+.txtLeft{
+  display: flex;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+// center text
+.txtCenter{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+// right text
+.txtRight{
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+//vertically center
+.v-align-center{
+  display: flex!important;
+  flex-direction: row;
+  align-items: center;
+}
+
+//vertically center top
+.v-align-top{
+  display: flex!important;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+//vertically center bottom
+.v-align-bottom{
+  display: flex!important;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+//colors
+@include makeColors(black,#000);
+
+// background-color
+@include makeBackColors(black,#000);
+@include makeBackColors(flat-orange,#f39c12);
+
+
+// font size
+@for $i from 1 to 51 {
+  .fs-#{$i} {
+    font-size: $i + 0px;
+  }
+}
+
+// margin size
+@for $i from 1 to 100 {
+  .m-#{$i} {
+    margin: #{$i}px 0;
+  }
+  .m-t-#{$i} {
+    margin-top: #{$i}px;
+  }
+  .m-b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .m-r-#{$i} {
+    margin-right: #{$i}px;
+  }
+  .m-l-#{$i} {
+    margin-left: #{$i}px;
+  }
+}
+
+// padding size
+@for $i from 1 to 100 {
+  .p-#{$i} {
+    padding: 0 #{$i}px;
+  }
+  .p-t-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .p-b-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .p-r-#{$i} {
+    padding-right: #{$i}px;
+  }
+  .p-l-#{$i} {
+    padding-left: #{$i}px;
+  }
+}

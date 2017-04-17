@@ -1,0 +1,19 @@
+// nav vertical
+nav.vertical{
+  ul{
+    list-style-type: none;
+    li{
+      display: block;
+      padding: 5px 0;
+    }
+  }
+}
+
+nav.horizontal{
+  ul{
+    list-style-type: none;
+    li{
+      display: inline-block;
+    }
+  }
+}
