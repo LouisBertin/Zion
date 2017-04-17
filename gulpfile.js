@@ -7,14 +7,20 @@ var cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var uncss = require('gulp-uncss');
-
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
+var runSequence = require('run-sequence');
 
 // paths
 var paths = {
+    // dev
     devScss: 'app/scss/**/*.scss',
     devCss: 'app/css',
+    devAllJs: '*.js',
     devAllCss: '*.css',
-    prodHtmlDir: 'app/*.html',
+    devDir: 'app',
+    //prod
+    prodHtmlDir: 'app/*.php',
     prodDir: 'dist'
 };
 
@@ -31,20 +37,51 @@ gulp.task('sass', function(){
         .pipe(gulp.dest(paths.devCss))
 });
 
+// js compilation
+gulp.task('js', function() {
+    return gulp.src(paths.devJs)
+        .pipe(uglify())
+        .pipe(concat('main.min.js'))
+        .pipe(gulp.dest(paths.prodDir + '/js/'));
+});
+
 // watcher
 gulp.task('watch', function(){
     gulp.watch(paths.devScss, ['sass']);
 });
 
-// prod
-gulp.task('prod-min', function () {
+// prod-minify
+gulp.task('prod-minify', function () {
     return gulp.src(paths.prodHtmlDir)
         .pipe(useref())
         .pipe(gulpif(paths.devAllCss, cleanCSS()))
-        .pipe(gulp.dest(paths.prodDir));
+        .pipe(gulpif(paths.devAllJs, uglify()))
+        .pipe(gulp.dest(paths.prodDir))
 });
 
-gulp.task('prod', function () {
-    return gulp.src('app/css/*.css')
-        .pipe(gulp.dest('dist/css'));
+// copy fonts to prod
+gulp.task('copyfonts', function() {
+    gulp.src(paths.devDir + '/fonts/**/*')
+        .pipe(gulp.dest(paths.prodDir + '/assets/fonts'));
+});
+
+// unCss
+gulp.task('uncss', function () {
+    return gulp.src([paths.prodDir + '/assets/css/**/*.css', '!dist/assets/css/prism.min.css'])
+        .pipe(uncss({
+            html: ['dist/*.php'],
+            ignore: [/\.z-fixed/]
+        }))
+        .pipe(gulp.dest(paths.prodDir + '/assets/css/'));
+});
+
+// run this task to create prod environment
+gulp.task('prod', function(done) {
+    runSequence('prod-minify', 'copyfonts', function() {
+        console.log('minify done');
+        runSequence('uncss', function() {
+            done();
+            console.log('have fun :)');
+        });
+    });
 });
